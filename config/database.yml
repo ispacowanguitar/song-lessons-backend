@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: song-lessons-backend_development
+
+test:
+  <<: *default
+  database: song-lessons-backend_test
+
+production:
+  <<: *default
+  database: song-lessons-backend_production
+  username: song-lessons-backend
+  password: <%= ENV['SONG-LESSONS-BACKEND_DATABASE_PASSWORD'] %>
