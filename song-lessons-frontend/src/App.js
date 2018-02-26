@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -7,14 +8,19 @@ class App extends Component {
       songs: [""]
     }
   }
+
   componentDidMount() {
-    this.setState({
-      songs: [
-        "All the things",
-        "Blue Bossa"
-      ]
-    })
+    axios.get('http://localhost:3000/songs')
+      .then(response => {
+        const songs = response.data.map(song => {
+          return song.title
+        })
+        debugger;
+        this.setState({songs: songs})
+      });
   }
+
+
   render() {
     return (
       <div>
