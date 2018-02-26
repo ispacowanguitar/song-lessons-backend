@@ -12,12 +12,10 @@ class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:3000/songs')
       .then(response => {
-        const songs = response.data.map(song => {
-          return song.title
-        })
-        debugger;
-        this.setState({songs: songs})
-      });
+          const songs = response.data.map(song => song.title )
+          this.setState({songs: songs})
+        }
+      ).catch(error => console.log(error))
   }
 
 
@@ -29,7 +27,7 @@ class App extends Component {
             return <li key={song}>{song}</li>
           })}
         </ul>
-       </div>
+      </div>
     );
   }
 }
