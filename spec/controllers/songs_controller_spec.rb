@@ -34,6 +34,13 @@ RSpec.describe SongsController, type: :controller do
         }
         expect(Song.first.title).to eq('Blues in F')
       end
+      it 'does not save duplicate songs' do
+        create(:song, title: 'Blues in F')
+        post :create, params: {
+          title: 'Blues in F'
+        }
+        expect(JSON.parse(response.body)['error']).to eq("Validation failed: Title has already been taken")
+      end
     end
   end
 end
