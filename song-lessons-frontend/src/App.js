@@ -9,7 +9,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState(this.props.getSongs());
+    this.setState(this.props.songs);
   }
 
   render() {
