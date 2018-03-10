@@ -12,16 +12,19 @@ class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:3000/songs')
       .then(response => {
-          const songs = response.data.map(song => song.title )
-          this.setState({songs: songs})
-        }
-      ).catch(error => console.log(error))
+        this.setState({
+          songs: response.data.map(song => song.title)
+        })
+      }).catch(error => console.log(error))
   }
 
 
   render() {
     return (
       <div>
+        <input>
+
+        </input>
         <ul>
           {this.state.songs.map(song => {
             return <li key={song}>{song}</li>
