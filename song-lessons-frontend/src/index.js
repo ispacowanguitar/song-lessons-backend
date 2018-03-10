@@ -1,10 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import { getSongs } from './songApiClient.js';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 
-const Application = <App />;
-ReactDOM.render(Application, document.getElementById('root'));
-
+ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();
