@@ -9,14 +9,17 @@ describe("<App/>", () => {
   beforeEach(() => {
     axiosStub = sinon.stub(axios, "get");
   });
+
   afterEach(() => {
     axios.get.restore();
   });
+
   it("renders without crashing", () => {
-    axiosStub.returns(Promise.resolve({ songs: ["hello world"] }));
+    axiosStub.returns(
+      Promise.resolve({ data: [{ title: "Im a song title!" }] })
+    );
 
     const div = document.createElement("div");
     ReactDOM.render(<App />, div);
-    ReactDOM.unmountComponentAtNode(div);
   });
 });
