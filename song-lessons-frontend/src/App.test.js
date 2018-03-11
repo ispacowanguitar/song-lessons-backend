@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import sinon from "sinon";
 import axios from "axios";
+import { shallow } from "enzyme";
+import { Enzyme } from "enzyme";
+// import Adapter from "enzyme-adapter-react-15";
 
 describe("<App/>", () => {
   let axiosStub;
@@ -28,6 +31,10 @@ describe("<App/>", () => {
         data: [{ title: "Autumn Leaves" }, { title: "Blue Bossa" }]
       })
     );
-    // wip
+    // Enzyme.configure({ adapter: new Adapter() });
+    // const wrapper = shallow(<App />);
+    // expect(wrapper.find("li"))
+    //   .get(0)
+    //   .to.equal("hello");
   });
 });
