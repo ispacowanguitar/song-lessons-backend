@@ -77,7 +77,7 @@ class App extends Component {
             onChange={this.filterList(this.state.allSongs)}
           />
           {this.state.filteredSongs && (
-            <ul>
+            <ul className={styles.all}>
               {this.state.filteredSongs.map(song => {
                 return <li key={song}>{song}</li>;
               })}
