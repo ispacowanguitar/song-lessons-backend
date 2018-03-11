@@ -16,10 +16,13 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "css-loader": "^0.28.10",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "jasmine-ajax": "^3.3.1",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.2.0",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.2.0",
+    "style-loader": "^0.20.3"
   }
 }

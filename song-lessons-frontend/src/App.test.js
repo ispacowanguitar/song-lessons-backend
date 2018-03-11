@@ -5,7 +5,6 @@ import sinon from "sinon";
 import axios from "axios";
 import { shallow } from "enzyme";
 import { Enzyme } from "enzyme";
-// import Adapter from "enzyme-adapter-react-15";
 
 describe("<App/>", () => {
   let axiosStub;
@@ -26,15 +25,23 @@ describe("<App/>", () => {
   });
 
   it("shows a filtered list of songs", () => {
-    axiosStub.returns(
-      Promise.resolve({
-        data: [{ title: "Autumn Leaves" }, { title: "Blue Bossa" }]
-      })
-    );
-    // Enzyme.configure({ adapter: new Adapter() });
-    // const wrapper = shallow(<App />);
-    // expect(wrapper.find("li"))
-    //   .get(0)
-    //   .to.equal("hello");
+    const promise = Promise.resolve({
+      data: [{ title: "Autumn Leaves" }, { title: "Blue Monk" }]
+    });
+    axiosStub.returns(promise);
+    const wrapper = shallow(<App />);
+    return promise.then(() => {
+      wrapper.update();
+      wrapper
+        .find("#songSearch")
+        .simulate("change", { target: { value: "tumn" } });
+      expect(
+        wrapper
+          .find("li")
+          .at(0)
+          .text()
+      ).toBe("Autumn Leaves");
+      expect(wrapper.find("li").length).toEqual(1);
+    });
   });
 });

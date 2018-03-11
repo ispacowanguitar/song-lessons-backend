@@ -3,6 +3,7 @@ import axios from "axios";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import styles from "./styles.css";
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class App extends Component {
     }
     const title = document.getElementById("newTitle").value;
     if (title.length < 1) {
-      alert("No");
+      this.setState({ showNewSongTextArea: false });
       return;
     } else if (this.state.allSongs.indexOf(title) !== -1) {
       alert(`${title} Already Exists`);
@@ -65,9 +66,13 @@ class App extends Component {
   }
 
   render() {
+    console.log(styles);
     return (
       <MuiThemeProvider>
-        <div>
+        <div className={styles.all}>
+          {this.state.showNewSongTextArea && <TextField id="newTitle" />}
+          <FlatButton label="Add Song" onClick={this.newSong} />
+          <div />
           <TextField
             id="songSearch"
             onChange={this.filterList(this.state.allSongs)}
@@ -79,10 +84,6 @@ class App extends Component {
               })}
             </ul>
           )}
-          <div>
-            {this.state.showNewSongTextArea && <TextField id="newTitle" />}
-            <FlatButton label="Add Song" onClick={this.newSong} />
-          </div>
         </div>
       </MuiThemeProvider>
     );
