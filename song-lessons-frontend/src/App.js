@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       allSongs: [""],
       filteredSongs: null,
-      newSong: ""
+      newSong: "",
+      showNewSongTextArea: false
     };
     this.newSong = this.newSong.bind(this);
     this.filterList = this.filterList.bind(this);
@@ -42,6 +43,10 @@ class App extends Component {
   }
 
   newSong(e) {
+    if (this.state.showNewSongTextArea === false) {
+      this.setState({ showNewSongTextArea: true });
+      return;
+    }
     const title = document.getElementById("newTitle").value;
     if (title.length < 1) {
       alert("No");
@@ -56,6 +61,7 @@ class App extends Component {
         this.setState({ allSongs: [...this.state.allSongs, title] });
       });
     document.getElementById("newTitle").value = "";
+    this.setState({ showNewSongTextArea: false });
   }
 
   render() {
@@ -74,7 +80,7 @@ class App extends Component {
             </ul>
           )}
           <div>
-            <TextField id="newTitle" />
+            {this.state.showNewSongTextArea && <TextField id="newTitle" />}
             <FlatButton label="Add Song" onClick={this.newSong} />
           </div>
         </div>
