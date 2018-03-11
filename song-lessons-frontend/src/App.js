@@ -69,11 +69,15 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className={styles.songsApp}>
-          {this.state.showNewSongTextArea && <TextField id="newTitle" />}
+          {this.state.showNewSongTextArea && (
+            <TextField className={styles.textField} id="newTitle" />
+          )}
           <FlatButton label="Add Song" onClick={this.newSong} />
           <div />
           <TextField
+            className={styles.textField}
             id="songSearch"
+            floatingLabelText="Song Title"
             onChange={this.filterList(this.state.allSongs)}
           />
           {this.state.filteredSongs && (
