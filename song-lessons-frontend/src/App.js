@@ -13,6 +13,7 @@ class App extends Component {
       newSong: ""
     };
     this.newSong = this.newSong.bind(this);
+    this.filterList = this.filterList.bind(this);
   }
 
   componentDidMount() {
@@ -41,14 +42,20 @@ class App extends Component {
   }
 
   newSong(e) {
-    const title = document.getElementById("Title").value;
+    const title = document.getElementById("newTitle").value;
+    if (title.length < 1) {
+      alert("No");
+      return;
+    } else if (this.state.allSongs.indexOf(title) !== -1) {
+      alert(`${title} Already Exists`);
+      return;
+    }
     axios
       .post("http://localhost:3000/songs", { title: title })
       .then(response => {
         this.setState({ allSongs: [...this.state.allSongs, title] });
-        console.log(response);
-      })
-      .catch(error => console.log(error.message));
+      });
+    document.getElementById("newTitle").value = "";
   }
 
   render() {
@@ -67,7 +74,7 @@ class App extends Component {
             </ul>
           )}
           <div>
-            <TextField id="Title" />
+            <TextField id="newTitle" />
             <FlatButton label="Add Song" onClick={this.newSong} />
           </div>
         </div>
