@@ -68,7 +68,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className={styles.songsRoot}>
+        <div className={styles.songsApp}>
           {this.state.showNewSongTextArea && <TextField id="newTitle" />}
           <FlatButton label="Add Song" onClick={this.newSong} />
           <div />
