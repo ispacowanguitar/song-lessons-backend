@@ -19,7 +19,15 @@ describe("<App/>", () => {
       Promise.resolve({ data: [{ title: "Im a song title!" }] })
     );
 
-    const div = document.createElement("div");
-    ReactDOM.render(<App />, div);
+    ReactDOM.render(<App />, document.createElement("div"));
+  });
+
+  it("shows a filtered list of songs", () => {
+    axiosStub.returns(
+      Promise.resolve({
+        data: [{ title: "Autumn Leaves" }, { title: "Blue Bossa" }]
+      })
+    );
+    // wip
   });
 });
