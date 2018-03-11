@@ -12,6 +12,7 @@ class App extends Component {
       filteredSongs: null,
       newSong: ""
     };
+    this.newSong = this.newSong.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +45,7 @@ class App extends Component {
     axios
       .post("http://localhost:3000/songs", { title: title })
       .then(response => {
+        this.setState({ allSongs: [...this.state.allSongs, title] });
         console.log(response);
       })
       .catch(error => console.log(error.message));

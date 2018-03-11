@@ -14,6 +14,7 @@ gem 'json', '~> 1.8.6'
 gem 'rack-cors'
 
 group :development, :test do
+  gem "awesome_print", require:"ap"
   gem 'rspec-rails', '~> 3.5'
   gem 'pry'
 end
