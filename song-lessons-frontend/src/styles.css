@@ -1,3 +1,13 @@
-.all {
-  color: red;
+body {
+  /* background: #e1e3de; */
+  background: lighten(red, 20%);
+}
+.songsRoot {
+}
+li {
+  list-style: none;
+  border: 1px solid #ccc;
+  line-height: 2;
+  padding: 5px 20px;
+  background: white;
 }

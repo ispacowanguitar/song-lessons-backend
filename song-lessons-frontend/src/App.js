@@ -68,7 +68,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className={styles.all}>
+        <div className={styles.songsRoot}>
           {this.state.showNewSongTextArea && <TextField id="newTitle" />}
           <FlatButton label="Add Song" onClick={this.newSong} />
           <div />
@@ -77,7 +77,7 @@ class App extends Component {
             onChange={this.filterList(this.state.allSongs)}
           />
           {this.state.filteredSongs && (
-            <ul className={styles.all}>
+            <ul>
               {this.state.filteredSongs.map(song => {
                 return <li key={song}>{song}</li>;
               })}
