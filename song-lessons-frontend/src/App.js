@@ -66,7 +66,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(styles);
     return (
       <MuiThemeProvider>
         <div className={styles.all}>
