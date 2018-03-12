@@ -5,6 +5,7 @@ import FlatButton from "material-ui/FlatButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import styles from "./styles.css";
 import NewSongAdder from "./NewSongAdder.jsx";
+import SongPage from "./SongPage.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends Component {
     this.state = {
       allSongs: [""],
       filteredSongs: null,
+      activeSong: null,
       newSong: "",
       showNewSongTextArea: false
     };
@@ -30,18 +32,16 @@ class App extends Component {
       .catch(error => console.log(error.message));
   }
 
-  filterList(allSongs) {
-    return e => {
-      const filteredSongs = allSongs.filter(
-        song => song.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-      );
-      this.setState({
-        filteredSongs: filteredSongs
-      });
-      if (e.target.value.length === 0) {
-        this.setState({ filteredSongs: null });
-      }
-    };
+  filterList(e) {
+    const filteredSongs = this.state.allSongs.filter(
+      song => song.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+    );
+    this.setState({
+      filteredSongs: filteredSongs
+    });
+    if (e.target.value.length === 0) {
+      this.setState({ filteredSongs: null });
+    }
   }
 
   newSong(e) {
@@ -66,6 +66,9 @@ class App extends Component {
     this.setState({ showNewSongTextArea: false });
   }
 
+  setActiveSong(song) {
+    this.setState({ filteredSongs: null, activeSong: song });
+  }
   render() {
     return (
       <MuiThemeProvider>
@@ -73,15 +76,22 @@ class App extends Component {
           <TextField
             className={styles.textField}
             id="songSearch"
-            floatingLabelText="Song Title"
-            onChange={this.filterList(this.state.allSongs)}
+            floatingLabelText="search"
+            onChange={this.filterList}
           />
           {this.state.filteredSongs && (
             <ul>
               {this.state.filteredSongs.map(song => {
-                return <li key={song}>{song}</li>;
+                return (
+                  <li onClick={() => this.setActiveSong(song)} key={song}>
+                    {song}
+                  </li>
+                );
               })}
             </ul>
+          )}
+          {this.state.activeSong && (
+            <SongPage songTitle={this.state.activeSong} />
           )}
           <NewSongAdder
             onSubmit={this.newSong}

@@ -12,6 +12,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
 gem 'json', '~> 1.8.6'
 gem 'rack-cors'
+gem 'bcrypt', '~> 3.1.11'
 
 group :development, :test do
   gem "awesome_print", require:"ap"
