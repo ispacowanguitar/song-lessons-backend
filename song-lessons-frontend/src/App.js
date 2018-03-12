@@ -4,6 +4,7 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import styles from "./styles.css";
+import NewSongAdder from "./NewSongAdder.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -69,11 +70,6 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className={styles.songsApp}>
-          {this.state.showNewSongTextArea && (
-            <TextField className={styles.textField} id="newTitle" />
-          )}
-          <FlatButton label="Add Song" onClick={this.newSong} />
-          <div />
           <TextField
             className={styles.textField}
             id="songSearch"
@@ -87,6 +83,10 @@ class App extends Component {
               })}
             </ul>
           )}
+          <NewSongAdder
+            onSubmit={this.newSong}
+            show={this.state.showNewSongTextArea}
+          />
         </div>
       </MuiThemeProvider>
     );
