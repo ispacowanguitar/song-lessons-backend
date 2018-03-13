@@ -13,6 +13,8 @@ gem 'puma', '~> 3.7'
 gem 'json', '~> 1.8.6'
 gem 'rack-cors'
 gem 'bcrypt', '~> 3.1.11'
+gem 'jwt', '~> 1.5.6'
+gem 'simple_command', '~> 0.0.9'
 
 group :development, :test do
   gem "awesome_print", require:"ap"
