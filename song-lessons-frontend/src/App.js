@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TextField from "material-ui/TextField";
-import FlatButton from "material-ui/FlatButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { Tabs, Tab } from "material-ui/Tabs";
 import styles from "./styles.css";
 import NewSongAdder from "./NewSongAdder.jsx";
 import SongPage from "./SongPage.jsx";
+import LoginModal from "./authorization/LoginModal.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +24,15 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/songs")
+      .get(
+        "http://localhost:3000/songs"
+        // , {
+        // headers: {
+        //   Authorization:
+        //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjA5Nzc2MDh9.C4xzksJTFp7fhhqUblXhkMESVPQwdaMN3kOuu4LAdSY"
+        // }
+        // }
+      )
       .then(response => {
         this.setState({
           allSongs: response.data.map(song => song.title)
@@ -73,6 +82,10 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className={styles.songsApp}>
+          <Tabs>
+            <Tab label="Search" />
+            <Tab label="Post" />
+          </Tabs>
           <TextField
             className={styles.textField}
             id="songSearch"
@@ -97,6 +110,7 @@ class App extends Component {
             onSubmit={this.newSong}
             show={this.state.showNewSongTextArea}
           />
+          <LoginModal />
         </div>
       </MuiThemeProvider>
     );
