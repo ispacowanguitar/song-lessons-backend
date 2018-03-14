@@ -8,7 +8,6 @@ export default class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
       email: null,
       password: null
     };
@@ -32,14 +31,14 @@ export default class LoginModal extends Component {
       .post("http://localhost:3000/auth/login", credentials)
       .then(response => {
         localStorage.setItem("jwt", response.data.access_token);
-        this.setState({ open: false });
+        this.props.onSuccess();
       })
       .catch(error => console.log(error.message));
   };
 
   render() {
     return (
-      <Dialog title="register" open={this.state.open}>
+      <Dialog title="register" open={this.props.show}>
         <div>
           <TextField
             id="email"

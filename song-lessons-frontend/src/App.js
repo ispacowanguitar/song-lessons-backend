@@ -16,7 +16,8 @@ class App extends Component {
       filteredSongs: null,
       activeSong: null,
       newSong: "",
-      showNewSongTextArea: false
+      showNewSongTextArea: false,
+      showLoginModal: false
     };
     this.newSong = this.newSong.bind(this);
     this.filterList = this.filterList.bind(this);
@@ -24,15 +25,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get(
-        "http://localhost:3000/songs"
-        // , {
-        // headers: {
-        //   Authorization:
-        //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjA5Nzc2MDh9.C4xzksJTFp7fhhqUblXhkMESVPQwdaMN3kOuu4LAdSY"
-        // }
-        // }
-      )
+      .get("http://localhost:3000/songs")
       .then(response => {
         this.setState({
           allSongs: response.data.map(song => song.title)
@@ -78,6 +71,11 @@ class App extends Component {
   setActiveSong(song) {
     this.setState({ filteredSongs: null, activeSong: song });
   }
+
+  openLoginModal = () => {
+    this.setState({ showLoginModal: true });
+  };
+
   render() {
     return (
       <MuiThemeProvider>
@@ -85,6 +83,7 @@ class App extends Component {
           <Tabs>
             <Tab label="Search" />
             <Tab label="Post" />
+            <Tab label="login" onActive={this.openLoginModal} />
           </Tabs>
           <TextField
             className={styles.textField}
@@ -110,7 +109,10 @@ class App extends Component {
             onSubmit={this.newSong}
             show={this.state.showNewSongTextArea}
           />
-          <LoginModal />
+          <LoginModal
+            onSuccess={() => this.setState({ showLoginModal: false })}
+            show={this.state.showLoginModal}
+          />
         </div>
       </MuiThemeProvider>
     );
