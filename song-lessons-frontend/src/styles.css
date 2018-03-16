@@ -1,14 +1,14 @@
 body {
   background: #e1e3de;
 }
-.songsApp {
-  margin: auto;
-}
 
 .textField {
   left: 120px;
 }
 
+.title {
+  left: 190px;
+}
 li {
   list-style: none;
   border: 1px solid #ccc;
@@ -17,6 +17,7 @@ li {
   background: white;
   max-width: 800px;
 }
+
 li:hover {
   background: rgb(52, 190, 178);
 }

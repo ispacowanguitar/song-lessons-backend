@@ -5,7 +5,6 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import FlatButton from "material-ui/FlatButton";
 import Toolbar from "material-ui/Toolbar";
 import ToolbarGroup from "material-ui/Toolbar/ToolbarGroup";
-import ToolbarSeparator from "material-ui/Toolbar/ToolbarSeparator";
 import ToolbarTitle from "material-ui/Toolbar/ToolbarTitle";
 import styles from "./styles.css";
 import NewSongAdder from "./NewSongAdder.jsx";
@@ -86,7 +85,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className={styles.songsApp}>
+        <div>
           <Toolbar>
             <ToolbarGroup firstChild={true} float="left">
               <TextField
@@ -95,6 +94,12 @@ class App extends Component {
                 floatingLabelText="search"
                 onChange={this.filterList}
               />
+              <ToolbarGroup>
+                <ToolbarTitle
+                  className={styles.title}
+                  text={this.state.activeSong}
+                />
+              </ToolbarGroup>
             </ToolbarGroup>
             <ToolbarGroup>
               <FlatButton label="Login" onClick={this.openLoginModal} />
