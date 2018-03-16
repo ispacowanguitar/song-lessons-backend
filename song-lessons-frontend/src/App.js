@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import TextField from "material-ui/TextField";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { Tabs, Tab } from "material-ui/Tabs";
+import FlatButton from "material-ui/FlatButton";
+import Toolbar from "material-ui/Toolbar";
+import ToolbarGroup from "material-ui/Toolbar/ToolbarGroup";
+import ToolbarSeparator from "material-ui/Toolbar/ToolbarSeparator";
+import ToolbarTitle from "material-ui/Toolbar/ToolbarTitle";
 import styles from "./styles.css";
 import NewSongAdder from "./NewSongAdder.jsx";
 import SongPage from "./SongPage.jsx";
@@ -75,22 +79,27 @@ class App extends Component {
   openLoginModal = () => {
     this.setState({ showLoginModal: true });
   };
+  closeLoginModal = () => {
+    this.setState({ showLoginModal: false });
+  };
 
   render() {
     return (
       <MuiThemeProvider>
         <div className={styles.songsApp}>
-          <Tabs>
-            <Tab label="Search" />
-            <Tab label="Post" />
-            <Tab label="login" onActive={this.openLoginModal} />
-          </Tabs>
-          <TextField
-            className={styles.textField}
-            id="songSearch"
-            floatingLabelText="search"
-            onChange={this.filterList}
-          />
+          <Toolbar>
+            <ToolbarGroup firstChild={true} float="left">
+              <TextField
+                className={styles.textField}
+                id="songSearch"
+                floatingLabelText="search"
+                onChange={this.filterList}
+              />
+            </ToolbarGroup>
+            <ToolbarGroup>
+              <FlatButton label="Login" onClick={this.openLoginModal} />
+            </ToolbarGroup>
+          </Toolbar>
           {this.state.filteredSongs && (
             <ul>
               {this.state.filteredSongs.map(song => {
@@ -112,6 +121,7 @@ class App extends Component {
           <LoginModal
             onSuccess={() => this.setState({ showLoginModal: false })}
             show={this.state.showLoginModal}
+            onLoginRequestClose={this.closeLoginModal}
           />
         </div>
       </MuiThemeProvider>

@@ -38,7 +38,11 @@ export default class LoginModal extends Component {
 
   render() {
     return (
-      <Dialog title="register" open={this.props.show}>
+      <Dialog
+        title="register"
+        onRequestClose={this.props.onLoginRequestClose}
+        open={this.props.show}
+      >
         <div>
           <TextField
             id="email"
