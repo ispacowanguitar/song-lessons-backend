@@ -2,7 +2,7 @@ class SongsController < ApplicationController
 skip_before_action :authenticate_request, only: %i[index]
 
   def index
-    song = Song.all.map {|song| {title: song.title}}
+    song = Song.all.map {|song| {title: song.title, id: song.id}}
     render json: song, status: :ok
   end
 

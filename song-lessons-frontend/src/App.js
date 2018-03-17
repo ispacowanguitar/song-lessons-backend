@@ -31,7 +31,9 @@ class App extends Component {
       .get("http://localhost:3000/songs")
       .then(response => {
         this.setState({
-          allSongs: response.data.map(song => song.title)
+          allSongs: response.data.map(song => {
+            return { title: song.title, id: song.id };
+          })
         });
       })
       .catch(error => console.log(error.message));
@@ -40,7 +42,8 @@ class App extends Component {
   filterList(e) {
     const filteredSongs = this.state.allSongs
       .filter(
-        song => song.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+        song =>
+          song.title.toLowerCase().search(e.target.value.toLowerCase()) !== -1
       )
       .slice(0, 20);
     this.setState({
@@ -84,6 +87,12 @@ class App extends Component {
     this.setState({ showLoginModal: false });
   };
 
+  getActiveSongId = () => {
+    return this.state.allSongs.find(
+      song => song.title === this.state.activeSong.title
+    ).id;
+  };
+
   render() {
     return (
       <MuiThemeProvider>
@@ -99,7 +108,9 @@ class App extends Component {
               <ToolbarGroup>
                 <ToolbarTitle
                   className={styles.title}
-                  text={this.state.activeSong}
+                  text={
+                    this.state.activeSong ? this.state.activeSong.title : ""
+                  }
                 />
               </ToolbarGroup>
             </ToolbarGroup>
@@ -111,23 +122,20 @@ class App extends Component {
             <ul>
               {this.state.filteredSongs.map(song => {
                 return (
-                  <li onClick={() => this.setActiveSong(song)} key={song}>
-                    {song}
+                  <li onClick={() => this.setActiveSong(song)} key={song.id}>
+                    {song.title}
                   </li>
                 );
               })}
             </ul>
-          )}
-          {this.state.activeSong && (
-            <SongPage songTitle={this.state.activeSong} />
           )}
           <LoginModal
             onSuccess={() => this.setState({ showLoginModal: false })}
             show={this.state.showLoginModal}
             onLoginRequestClose={this.closeLoginModal}
           />
+          {this.state.activeSong && <Posts songId={this.getActiveSongId()} />}
         </div>
-        <Posts song={this.state.activeSong} />
       </MuiThemeProvider>
     );
   }
