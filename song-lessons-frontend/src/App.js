@@ -7,9 +7,9 @@ import Toolbar from "material-ui/Toolbar";
 import ToolbarGroup from "material-ui/Toolbar/ToolbarGroup";
 import ToolbarTitle from "material-ui/Toolbar/ToolbarTitle";
 import styles from "./styles.css";
-import NewSongAdder from "./NewSongAdder.jsx";
 import SongPage from "./SongPage.jsx";
 import LoginModal from "./authorization/LoginModal.jsx";
+import Posts from "./Posts.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -38,9 +38,11 @@ class App extends Component {
   }
 
   filterList(e) {
-    const filteredSongs = this.state.allSongs.filter(
-      song => song.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-    );
+    const filteredSongs = this.state.allSongs
+      .filter(
+        song => song.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+      )
+      .slice(0, 20);
     this.setState({
       filteredSongs: filteredSongs
     });
@@ -119,16 +121,13 @@ class App extends Component {
           {this.state.activeSong && (
             <SongPage songTitle={this.state.activeSong} />
           )}
-          <NewSongAdder
-            onSubmit={this.newSong}
-            show={this.state.showNewSongTextArea}
-          />
           <LoginModal
             onSuccess={() => this.setState({ showLoginModal: false })}
             show={this.state.showLoginModal}
             onLoginRequestClose={this.closeLoginModal}
           />
         </div>
+        <Posts song={this.state.activeSong} />
       </MuiThemeProvider>
     );
   }
