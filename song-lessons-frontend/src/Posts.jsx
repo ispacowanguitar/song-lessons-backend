@@ -8,8 +8,20 @@ export default class Posts extends Component {
       posts: []
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.songId !== this.props.songId) {
+      const songId = nextProps.songId;
+      this.fetchData(songId);
+    }
+  }
+
   componentDidMount() {
     const songId = this.props.songId;
+    this.fetchData(songId);
+  }
+
+  fetchData = songId => {
     axios
       .get("http://localhost:3000/posts", {
         params: {
@@ -20,13 +32,14 @@ export default class Posts extends Component {
         this.setState({ posts: response.data });
       })
       .catch(error => console.log(error.message));
-  }
+  };
+
   render() {
     return (
       <div>
         <ul>
           {this.state.posts.map(post => {
-            return <li>{post.description}</li>;
+            return <li key={post.id}>{post.description}</li>;
           })}
         </ul>
       </div>

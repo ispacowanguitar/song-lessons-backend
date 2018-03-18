@@ -9,8 +9,12 @@ body {
 .title {
   left: 190px;
 }
+
 li {
   list-style: none;
+}
+
+.songSearchList {
   border: 1px solid #ccc;
   line-height: 2;
   padding: 5px 20px;
@@ -18,6 +22,6 @@ li {
   max-width: 800px;
 }
 
-li:hover {
+.songSearchList:hover {
   background: rgb(52, 190, 178);
 }

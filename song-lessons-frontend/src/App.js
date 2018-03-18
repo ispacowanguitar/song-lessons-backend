@@ -7,7 +7,6 @@ import Toolbar from "material-ui/Toolbar";
 import ToolbarGroup from "material-ui/Toolbar/ToolbarGroup";
 import ToolbarTitle from "material-ui/Toolbar/ToolbarTitle";
 import styles from "./styles.css";
-import SongPage from "./SongPage.jsx";
 import LoginModal from "./authorization/LoginModal.jsx";
 import Posts from "./Posts.jsx";
 
@@ -83,14 +82,9 @@ class App extends Component {
   openLoginModal = () => {
     this.setState({ showLoginModal: true });
   };
+
   closeLoginModal = () => {
     this.setState({ showLoginModal: false });
-  };
-
-  getActiveSongId = () => {
-    return this.state.allSongs.find(
-      song => song.title === this.state.activeSong.title
-    ).id;
   };
 
   render() {
@@ -122,7 +116,11 @@ class App extends Component {
             <ul>
               {this.state.filteredSongs.map(song => {
                 return (
-                  <li onClick={() => this.setActiveSong(song)} key={song.id}>
+                  <li
+                    className={styles.songSearchList}
+                    onClick={() => this.setActiveSong(song)}
+                    key={song.id}
+                  >
                     {song.title}
                   </li>
                 );
@@ -134,7 +132,7 @@ class App extends Component {
             show={this.state.showLoginModal}
             onLoginRequestClose={this.closeLoginModal}
           />
-          {this.state.activeSong && <Posts songId={this.getActiveSongId()} />}
+          {this.state.activeSong && <Posts songId={this.state.activeSong.id} />}
         </div>
       </MuiThemeProvider>
     );
