@@ -39,10 +39,11 @@ class App extends Component {
   }
 
   filterList(e) {
+    const sanitizedInput = e.target.value.replace(/[^0-9a-z]/gi, "");
     const filteredSongs = this.state.allSongs
       .filter(
         song =>
-          song.title.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+          song.title.toLowerCase().search(sanitizedInput.toLowerCase()) !== -1
       )
       .slice(0, 20);
     this.setState({
