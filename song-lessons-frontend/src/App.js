@@ -3,6 +3,7 @@ import axios from "axios";
 import TextField from "material-ui/TextField";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
 import Toolbar from "material-ui/Toolbar";
 import ToolbarGroup from "material-ui/Toolbar/ToolbarGroup";
 import ToolbarTitle from "material-ui/Toolbar/ToolbarTitle";
@@ -112,7 +113,15 @@ class App extends Component {
                 />
               </ToolbarGroup>
             </ToolbarGroup>
+            <ToolbarGroup />
             <ToolbarGroup>
+              {this.state.activeSong && (
+                <RaisedButton
+                  label="Post"
+                  primary={true}
+                  style={{ float: "right" }}
+                />
+              )}
               <FlatButton label="Login" onClick={this.openLoginModal} />
             </ToolbarGroup>
           </Toolbar>
