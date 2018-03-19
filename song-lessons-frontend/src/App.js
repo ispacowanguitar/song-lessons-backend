@@ -10,6 +10,7 @@ import ToolbarTitle from "material-ui/Toolbar/ToolbarTitle";
 import styles from "./styles.css";
 import LoginModal from "./authorization/LoginModal.jsx";
 import Posts from "./Posts.jsx";
+import PostForm from "./PostForm.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
       filteredSongs: null,
       activeSong: null,
       newSong: "",
+      showPostForm: false,
       showNewSongTextArea: false,
       showLoginModal: false
     };
@@ -92,6 +94,10 @@ class App extends Component {
     this.setState({ showLoginModal: false });
   };
 
+  showPostForm = () => {
+    this.setState({ showPostForm: true });
+  };
+
   render() {
     return (
       <MuiThemeProvider>
@@ -120,6 +126,7 @@ class App extends Component {
                   label="Post"
                   primary={true}
                   style={{ float: "right" }}
+                  onClick={this.showPostForm}
                 />
               )}
               <FlatButton label="Login" onClick={this.openLoginModal} />
@@ -145,7 +152,11 @@ class App extends Component {
             show={this.state.showLoginModal}
             onLoginRequestClose={this.closeLoginModal}
           />
-          {this.state.activeSong && <Posts songId={this.state.activeSong.id} />}
+          {this.state.activeSong &&
+            !this.state.showPostForm && (
+              <Posts songId={this.state.activeSong.id} />
+            )}
+          {this.state.showPostForm && <PostForm />}
         </div>
       </MuiThemeProvider>
     );
